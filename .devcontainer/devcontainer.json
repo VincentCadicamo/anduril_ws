@@ -1,0 +1,47 @@
+{
+  "name": "anduril-ros2-humble",
+
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "USER_UID": "${localEnv:USER_UID:1000}",
+      "USER_GID": "${localEnv:USER_GID:1000}"
+    }
+  },
+
+  "workspaceFolder": "/workspaces/anduril_ws",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/anduril_ws,type=bind,consistency=cached",
+
+  "remoteUser": "ros",
+  "runArgs": ["--network=host"],
+
+  "containerEnv": {
+    "DISPLAY": ":0",
+    "WAYLAND_DISPLAY": "wayland-0",
+    "XDG_RUNTIME_DIR": "/mnt/wslg/runtime-dir",
+    "PULSE_SERVER": "/mnt/wslg/PulseServer",
+    "ROS_DOMAIN_ID": "42"
+  },
+
+  "mounts": [
+    "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
+    "source=/mnt/wslg/runtime-dir,target=/mnt/wslg/runtime-dir,type=bind,consistency=cached"
+  ],
+
+  "customizations": {
+    "jetbrains": {
+      "backend": "CLion"
+    },
+    "vscode": {
+      "extensions": [
+        "ms-iot.vscode-ros",
+        "ms-vscode.cpptools",
+        "ms-vscode.cmake-tools",
+        "ms-python.python",
+        "twxs.cmake"
+      ]
+    }
+  },
+
+  "postCreateCommand": "bash .devcontainer/post-create.sh"
+}
