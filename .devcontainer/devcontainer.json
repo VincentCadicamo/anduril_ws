@@ -13,6 +13,7 @@
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/anduril_ws,type=bind,consistency=cached",
 
   "remoteUser": "ros",
+  "updateRemoteUserUID": false,
   "runArgs": ["--network=host"],
 
   "containerEnv": {

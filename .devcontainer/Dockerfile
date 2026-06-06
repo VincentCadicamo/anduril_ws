@@ -8,6 +8,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       ros-humble-rviz2 ros-humble-rosidl-default-generators \
     && rm -rf /var/lib/apt/lists/*
 
+RUN pip3 install --no-cache-dir pymavlink
+
 ARG USER_UID=1000
 ARG USER_GID=1000
 
