@@ -1,0 +1,42 @@
+%YAML:1.0
+
+# Monocular config: cam0 only. Simulated qualifier drone.
+#
+# OpenVINS reads from "T_imu_cam"
+# It expects a matrix of the camera to IMU transform:
+#
+# R_CtoI (rotation camera to IMU) and p_CinI (camera position in IMU)
+# This is the INVERSE of the Kalibr "T_cam_imu" (= R_body_to_cam)
+#
+# Source intent (from specification 3.8): IMU = body origin (identity), body frame NED
+# (X fwd, Y right, Z down). Camera shares the origin (translation 0) and tilts
+# 20 deg from body forward.
+#
+# TILT DIRECTION: the at-rest IMU reads accel=(-3.0, 0, -9.34), i.e. the body
+# gravity vector points forward+down (nose-down ~18 deg). This indicates the
+# camera tilts DOWN from body forward, not up. The 0.342 terms therefore carry
+# the sign for a DOWNWARD tilt (negated from the original tilt-up version).
+#
+#   R_body_to_cam = Rx(+20) @ R_NED_to_optical  (the Kalibr T_cam_imu rotation)
+#     = [ 0.000  1.000  0.000 ]
+#       [-0.342  0.000  0.940 ]
+#       [ 0.940  0.000  0.342 ]   <- optical axis = fwd + down (NED down = +Z)
+#
+# T_imu_cam below = transpose of that (since translation is zero):
+#   sanity: cam Z (0,0,1) -> (0.940, 0, 0.342) in body = forward & down. Good.
+# If the sim turns out to tilt UP instead, flip the sign of the 0.342 terms
+# back (restore +0.342 in row 0 col 1, and -0.342 in row 2 col 2).
+
+cam0:
+  T_imu_cam: # R_CtoI (camera->IMU rotation), p_CinI (camera position in IMU)
+    - [0.0, -0.34202, 0.939693, 0.0]
+    - [1.0, 0.0, 0.0, 0.0]
+    - [0.0, 0.939693, 0.34202, 0.0]
+    - [0.0, 0.0, 0.0, 1.0]
+  cam_overlaps: []
+  camera_model: pinhole
+  distortion_coeffs: [0.0, 0.0, 0.0, 0.0]
+  distortion_model: radtan
+  intrinsics: [320.0, 320.0, 320.0, 180.0] # fu, fv, cu, cv
+  resolution: [640, 360]
+  rostopic: /cam0/image_raw

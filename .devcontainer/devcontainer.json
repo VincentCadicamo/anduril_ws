@@ -14,14 +14,19 @@
 
   "remoteUser": "ros",
   "updateRemoteUserUID": false,
-  "runArgs": ["--network=host"],
+  "runArgs": [
+    "--network=host",
+    "--ipc=host",
+    "--pid=host"
+  ],
 
   "containerEnv": {
     "DISPLAY": ":0",
     "WAYLAND_DISPLAY": "wayland-0",
     "XDG_RUNTIME_DIR": "/mnt/wslg/runtime-dir",
     "PULSE_SERVER": "/mnt/wslg/PulseServer",
-    "ROS_DOMAIN_ID": "42"
+    "ROS_DOMAIN_ID": "0",
+    "ROS_LOCALHOST_ONLY": "0"
   },
 
   "mounts": [

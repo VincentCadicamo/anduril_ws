@@ -15,5 +15,6 @@ def generate_launch_description():
             executable="mav_bridge",
             name="mav_bridge",
             output="screen",
+            parameters=[{"test_climb": True}],
         ),
     ])

@@ -6,13 +6,6 @@ ROS 2 Humble development container with GUI forwarding via WSLg (X11 + Wayland).
 
 ## Prerequisites
 
-| Requirement | Notes |
-|---|---|
-| Docker Desktop | Enable **WSL 2 backend** in Settings → General |
-| WSL 2 (Ubuntu 22.04 LTS recommended) | `wsl --install -d Ubuntu-22.04` |
-| WSLg | Bundled with WSL 2 on Windows 11 |
-| JetBrains Gateway **or** VS Code | Choose one — see IDE sections below |
-
 Verify your setup inside a WSL terminal:
 
 ```bash
@@ -78,20 +71,3 @@ rviz2
 ```
 
 RViz should appear on your Windows desktop via WSLg. If it does not, check that `/tmp/.X11-unix/X0` and `/mnt/wslg/runtime-dir/wayland-0` exist inside the container.
-
----
-
-## Steps for Linux TODO
-
-Replace the WSLg mounts with your local X11 socket:
-
-```jsonc
-// In devcontainer.json replace the mounts and containerEnv blocks:
-"containerEnv": {
-  "DISPLAY": "${localEnv:DISPLAY}",
-  "ROS_DOMAIN_ID": "42"
-},
-"mounts": [
-  "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached"
-]
-```se Wayland, also export `WAYLAND_DISPLAY` and mount `$XDG_RUNTIME_DIR`.

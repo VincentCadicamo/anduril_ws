@@ -9,6 +9,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip3 install --no-cache-dir pymavlink
+RUN pip3 install pynput
+RUN apt install ros-humble-mavros-msgs
+RUN apt install xterm
 
 ARG USER_UID=1000
 ARG USER_GID=1000
