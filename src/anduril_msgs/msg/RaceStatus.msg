@@ -1,0 +1,6 @@
+std_msgs/Header header
+uint64 sim_boot_time_ms
+int64  race_start_boot_time_ms
+int64  race_finish_time_ns
+uint32 active_gate_index
+int64  last_gate_race_time_ns

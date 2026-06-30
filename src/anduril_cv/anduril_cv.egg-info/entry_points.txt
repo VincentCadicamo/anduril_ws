@@ -1,0 +1,3 @@
+[console_scripts]
+gate_pose_node = anduril_cv.gate_pose_node:main
+

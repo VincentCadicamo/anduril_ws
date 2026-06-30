@@ -19,7 +19,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN pip3 install --no-cache-dir pymavlink
 RUN pip3 install --no-cache-dir pynput
 # numpy<2 required: cv_bridge and system matplotlib are compiled against NumPy 1.x
-RUN pip3 install --no-cache-dir "numpy<2" "ultralytics" "onnxruntime"
+RUN pip3 install --no-cache-dir "numpy<2"
+# Install PyTorch with CUDA 12.4 before ultralytics so it picks up the GPU build
+RUN pip3 install --no-cache-dir torch torchvision --index-url https://download.pytorch.org/whl/cu124
+# onnxruntime-gpu bundles its own CUDA/cuDNN runtime; replaces the CPU-only onnxruntime
+RUN pip3 install --no-cache-dir "ultralytics" "onnxruntime-gpu"
 
 ARG USER_UID=1000
 ARG USER_GID=1000

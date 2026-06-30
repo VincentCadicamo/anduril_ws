@@ -1,0 +1,14 @@
+package.xml
+setup.cfg
+setup.py
+anduril_cv/__init__.py
+anduril_cv/gate_pose_node.py
+anduril_cv.egg-info/PKG-INFO
+anduril_cv.egg-info/SOURCES.txt
+anduril_cv.egg-info/dependency_links.txt
+anduril_cv.egg-info/entry_points.txt
+anduril_cv.egg-info/requires.txt
+anduril_cv.egg-info/top_level.txt
+anduril_cv.egg-info/zip-safe
+launch/gate_pose.launch.py
+resource/anduril_cv
