@@ -14,7 +14,7 @@ imu0:
   gyroscope_random_walk: 0.001          #rad / s^2 / sqrt(Hz)
   rostopic: /imu0
   time_offset: 0.0
-  update_rate: 200.0
+  update_rate: 120.0
   model: "kalibr"
   Tw:
     - [ 1.0, 0.0, 0.0 ]

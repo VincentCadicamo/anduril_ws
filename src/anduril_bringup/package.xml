@@ -3,9 +3,9 @@
 <package format="3">
   <name>anduril_bringup</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
+  <description>Top-level bringup package: launches the full drone stack (sim bridge, VIO, RViz).</description>
   <maintainer email="vcadicamo@icloud.com">ros</maintainer>
-  <license>TODO: License declaration</license>
+  <license>Apache-2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
@@ -13,6 +13,7 @@
   <test_depend>ament_lint_common</test_depend>
 
   <exec_depend>anduril_sim_bridge</exec_depend>
+  <exec_depend>anduril_manual_control</exec_depend>
   <exec_depend>anduril_vslam</exec_depend>
   <exec_depend>ov_msckf</exec_depend>
   <exec_depend>rviz2</exec_depend>

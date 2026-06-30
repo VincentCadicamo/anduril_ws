@@ -8,7 +8,9 @@
       "USER_GID": "${localEnv:USER_GID:1000}"
     }
   },
-
+  "features": {
+    "ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {}
+  },
   "workspaceFolder": "/workspaces/anduril_ws",
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/anduril_ws,type=bind,consistency=cached",
 
@@ -17,16 +19,23 @@
   "runArgs": [
     "--network=host",
     "--ipc=host",
-    "--pid=host"
+    "--pid=host",
+    "--device=/dev/dxg",
+    "-v", "/usr/lib/wsl:/usr/lib/wsl:ro"
   ],
 
   "containerEnv": {
-    "DISPLAY": ":0",
-    "WAYLAND_DISPLAY": "wayland-0",
+    "DISPLAY": "${localEnv:DISPLAY}",
+    "WAYLAND_DISPLAY": "${localEnv:WAYLAND_DISPLAY}",
     "XDG_RUNTIME_DIR": "/mnt/wslg/runtime-dir",
-    "PULSE_SERVER": "/mnt/wslg/PulseServer",
+    "PULSE_SERVER": "unix:/mnt/wslg/runtime-dir/PulseServer",
+    "LD_LIBRARY_PATH": "/usr/lib/wsl/lib:${LD_LIBRARY_PATH}",
     "ROS_DOMAIN_ID": "0",
-    "ROS_LOCALHOST_ONLY": "0"
+    "ROS_LOCALHOST_ONLY": "0",
+    "GALLIUM_DRIVER": "d3d12",
+    "MESA_GL_VERSION_OVERRIDE": "4.6",
+    "RMW_IMPLEMENTATION": "rmw_cyclonedds_cpp",
+    "CYCLONEDS_URI": "file:///workspaces/anduril_ws/.devcontainer/cycloneds_pcie.xml"
   },
 
   "mounts": [

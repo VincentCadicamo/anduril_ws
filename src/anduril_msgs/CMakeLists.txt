@@ -15,6 +15,10 @@ rosidl_generate_interfaces(${PROJECT_NAME}
         "msg/Pixel.msg"
         "msg/GateDetection.msg"
         "msg/GatePose.msg"
+        "msg/Gate.msg"
+        "msg/RaceStatus.msg"
+        "msg/TrackData.msg"
+        "msg/Collision.msg"
         DEPENDENCIES std_msgs geometry_msgs
 )
 

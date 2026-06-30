@@ -27,7 +27,7 @@ setup(
     entry_points={
         'console_scripts': [
             'camera_bridge = anduril_sim_bridge.camera_bridge:main',
-            'mav_bridge = anduril_sim_bridge.mav_bridge:main',
+            'mav_bridge = anduril_sim_bridge.mav_bridge.node:main',
         ],
     },
 )

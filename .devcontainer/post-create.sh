@@ -23,4 +23,7 @@ else
     echo "WARNING: rosdep command not found. Skipping initialization."
 fi
 
+# Register Python packages with importlib.metadata so entry points resolve correctly
+pip3 install --quiet -e /workspaces/anduril_ws/src/anduril_cv
+
 echo "Dev container ready. Build with:  colcon build"

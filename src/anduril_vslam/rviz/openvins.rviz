@@ -3,103 +3,212 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
-        - /Path1
-        - /TrackImage1
+        - /TF1
+        - /FPV Camera1
+        - /Gate Detection1
+        - /EKF Drone Pose1
+        - /EKF Path1
+        - /Gate Markers1
       Splitter Ratio: 0.5
   - Class: rviz_common/Views
     Name: Views
+
 Visualization Manager:
   Class: ""
   Global Options:
-    Background Color: 48; 48; 48
-    Fixed Frame: global
+    Background Color: 20; 20; 30
+    Fixed Frame: world_ned
     Frame Rate: 30
   Name: root
   Displays:
+
     - Class: rviz_default_plugins/Grid
       Name: Grid
       Enabled: true
-      Cell Size: 1
-      Plane Cell Count: 20
-      Color: 160; 160; 164
+      Cell Size: 5
+      Plane Cell Count: 40
+      Color: 80; 80; 80
+      Plane: XY
+      Normal Cell Count: 0
+      Line Style:
+        Line Width: 0.03
+        Value: Lines
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+
     - Class: rviz_default_plugins/TF
       Name: TF
       Enabled: true
       Show Names: true
-      Marker Scale: 1
-    - Class: rviz_default_plugins/Path
-      Name: Path
+      Show Arrows: true
+      Show Axes: true
+      Marker Scale: 2.0
+      Update Interval: 0.0
+
+    # ── Camera feeds ─────────────────────────────────────────────────────────
+    - Class: rviz_default_plugins/Image
+      Name: FPV Camera
       Enabled: true
-      Color: 25; 255; 0
-      Line Style: Lines
       Topic:
-        Value: /pathimu
+        Value: /cam0/image_raw
+        Reliability Policy: Best Effort
+        Depth: 1
+      Transport Hint: raw
+      Normalize Range: true
+
+    - Class: rviz_default_plugins/Image
+      Name: Gate Detection
+      Enabled: true
+      Topic:
+        Value: /gate/debug
+        Reliability Policy: Reliable
+        Depth: 1
+      Transport Hint: raw
+      Normalize Range: true
+
+    # ── EKF output ───────────────────────────────────────────────────────────
+    - Class: rviz_default_plugins/Odometry
+      Name: EKF Drone Pose
+      Enabled: true
+      Keep: 1
+      Topic:
+        Value: /drone/odom
+        Reliability Policy: Reliable
+        Depth: 5
+      Covariance:
+        Value: true
+        Orientation:
+          Alpha: 0.3
+          Color: 255; 255; 0
+          Color Style: Unique
+          Frame: Local
+          Offset: 1.0
+          Scale: 1.0
+          Value: true
+        Position:
+          Alpha: 0.5
+          Color: 255; 85; 255
+          Scale: 1.0
+          Value: true
+      Shape:
+        Alpha: 1.0
+        Color: 255; 170; 0
+        Head Length: 0.4
+        Head Radius: 0.2
+        Shaft Length: 0.8
+        Shaft Radius: 0.08
+        Value: Arrow
+
+    - Class: rviz_default_plugins/Path
+      Name: EKF Path
+      Enabled: true
+      Color: 255; 170; 0
+      Line Style: Lines
+      Line Width: 0.06
+      Topic:
+        Value: /drone/path
         Reliability Policy: Reliable
         Depth: 10
-    - Class: rviz_default_plugins/Odometry
-      Name: Odometry
+
+    # ── Gate world positions ──────────────────────────────────────────────────
+    - Class: rviz_default_plugins/MarkerArray
+      Name: Gate Markers
       Enabled: true
+      Topic:
+        Value: /gate/markers
+        Reliability Policy: Reliable
+        Depth: 10
+
+    # ── OpenVINS (disabled by default — enable for comparison) ───────────────
+    - Class: rviz_default_plugins/Image
+      Name: Feature Tracker
+      Enabled: false
+      Topic:
+        Value: /ov_msckf/trackhist
+        Reliability Policy: Reliable
+        Depth: 1
+      Transport Hint: raw
+      Normalize Range: true
+
+    - Class: rviz_default_plugins/Odometry
+      Name: VIO Pose
+      Enabled: false
       Keep: 1
       Topic:
         Value: /ov_msckf/odomimu
         Reliability Policy: Reliable
-        Depth: 10
+        Depth: 5
       Covariance:
-        Orientation:
-          Alpha: 0.5
-          Scale: 1
-        Position:
-          Alpha: 0.3
-          Scale: 1
-        Value: true
+        Value: false
+      Shape:
+        Alpha: 0.6
+        Color: 0; 220; 80
+        Head Length: 0.3
+        Head Radius: 0.15
+        Shaft Length: 0.6
+        Shaft Radius: 0.06
+        Value: Arrow
+
+    - Class: rviz_default_plugins/Path
+      Name: VIO Trajectory
+      Enabled: false
+      Color: 0; 220; 80
+      Line Style: Lines
+      Line Width: 0.05
+      Topic:
+        Value: /ov_msckf/pathimu
+        Reliability Policy: Reliable
+        Depth: 10
+
     - Class: rviz_default_plugins/PointCloud2
-      Name: MSCKF Points
-      Enabled: true
+      Name: MSCKF Features
+      Enabled: false
       Size (Pixels): 3
       Style: Points
-      Color: 255; 0; 0
+      Color: 255; 80; 80
       Color Transformer: FlatColor
       Topic:
         Value: /ov_msckf/points_msckf
         Reliability Policy: Reliable
-        Depth: 10
+        Depth: 5
+
     - Class: rviz_default_plugins/PointCloud2
-      Name: SLAM Points
-      Enabled: true
-      Size (Pixels): 4
+      Name: SLAM Landmarks
+      Enabled: false
+      Size (Pixels): 5
       Style: Points
-      Color: 0; 170; 255
+      Color: 0; 180; 255
       Color Transformer: FlatColor
       Topic:
         Value: /ov_msckf/points_slam
         Reliability Policy: Reliable
-        Depth: 10
-    - Class: rviz_default_plugins/Image
-      Name: TrackImage
-      Enabled: true
-      Topic:
-        Value: /trackhist
-        Reliability Policy: Reliable
-        Depth: 10
+        Depth: 5
+
   Tools:
     - Class: rviz_default_plugins/MoveCamera
     - Class: rviz_default_plugins/FocusCamera
     - Class: rviz_default_plugins/Measure
+
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Name: Current View
-      Distance: 10
+      Name: Top-Down Bird's Eye
+      Distance: 50
       Focal Point:
         X: 0
         Y: 0
         Z: 0
-      Pitch: 0.5
-      Yaw: 0.7
+      Pitch: 1.4
+      Yaw: 3.14
+      Enable Stereo Rendering:
+        Value: false
     Saved: ~
+
 Window Geometry:
-  Height: 800
-  Width: 1200
+  Height: 900
+  Width: 1600
   Displays:
     collapsed: false
   Views:

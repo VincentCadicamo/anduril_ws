@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CycloneDDS xmlns="https://cdds.io/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://cdds.io/config https://raw.githubusercontent.com/eclipse-cyclonedds/cyclonedds/master/etc/cyclonedds.xsd">
+    <Domain id="any">
+        <!-- Restrict DDS to loopback only — all nodes run on the same host. -->
+        <!-- This prevents multicast traffic from leaking onto external interfaces. -->
+        <General>
+            <Interfaces>
+                <NetworkInterface name="lo" multicast="true"/>
+            </Interfaces>
+        </General>
+        <Internal>
+            <Sizing>
+                <!-- 8 MiB socket buffers — needed for sustained 50 Hz camera frames (~230 KB each). -->
+                <ReceiveBufferSize>8388608</ReceiveBufferSize>
+                <SendBufferSize>8388608</SendBufferSize>
+            </Sizing>
+        </Internal>
+    </Domain>
+</CycloneDDS>
