@@ -212,7 +212,7 @@ Copy the output and add it to your GitHub account under **Settings → SSH and G
 ```bash
 mkdir -p ~/projects
 cd ~/projects
-git clone https://github.com/VincentCadicamo/anduril_ws.git
+git clone --recurse-submodules https://github.com/VincentCadicamo/anduril_ws.git
 cd anduril_ws
 ```
 
