@@ -1,17 +1,7 @@
 # Anduril Workspace — From-Scratch Setup Guide
 
-This guide takes you from a bare Windows machine to a fully running dev container with ROS 2 Humble and CUDA GPU support.
-
 > **Why Docker Engine in WSL2 (not Docker Desktop)?**
 > The dev container mounts `/dev/dxg` and `/usr/lib/wsl` directly from the host — these are WSL2-internal paths that only exist when Docker runs natively inside WSL2. Docker Desktop adds its own VM layer that breaks those mounts. Install Docker Engine inside Ubuntu instead.
-
----
-
-## What you need before starting
-
-- Windows 10 (version 21H2 or later) or Windows 11
-- NVIDIA RTX GPU (RTX 3090 or similar)
-- At least 60 GB free disk space (Ubuntu + Docker images + build cache)
 
 ---
 
